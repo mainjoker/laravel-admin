@@ -1,0 +1,106 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Hong
+ * Date: 2018/3/9
+ * Time: 22:28
+ * Function:
+ */
+
+namespace Tanmo\Admin;
+
+
+use Illuminate\Support\Facades\Auth;
+use Closure;
+use Illuminate\Support\Facades\Route;
+use Tanmo\Admin\Layouts\Content;
+use Tanmo\Admin\Models\Menu;
+
+class Admin
+{
+    /**
+     * @return string
+     */
+    public function title()
+    {
+        return '管理系统';
+    }
+
+    /**
+     * @return \Tanmo\Admin\Models\Administrator|null
+     */
+    public function user()
+    {
+        return Auth::guard('admin')->user();
+    }
+
+    /**
+     * @return array
+     */
+    public function menu()
+    {
+        return (new Menu())->toTree();
+    }
+
+    public function css()
+    {
+
+    }
+
+    public function js()
+    {
+
+    }
+
+    /**
+     * 注册管理后台路由
+     */
+    public function registerAdminRoutes()
+    {
+        Route::group([
+            'prefix' => 'admin',
+            'namespace' => 'Tanmo\Admin\Controllers',
+            'middleware' => ['web'],
+            'as' => 'admin::'
+        ], function () {
+            /// 游客权限
+            Route::get('auth/login', 'AuthController@index')->name('login');
+            Route::post('auth/login', 'AuthController@login')->name('login');
+            Route::any('auth/logout', 'AuthController@logout')->name('logout');
+
+            /// 登录权限
+            Route::group(['middleware' => ['admin']], function () {
+                Route::get('/', 'MainController@index')->name('main');
+                Route::get('/profile', 'ProfileController@index')->name('profile');
+                Route::put('/profile', 'ProfileController@update')->name('profile');
+
+                /// 验证权限
+                Route::group([
+                    'middleware' => ['admin.check_permission']
+                ], function () {
+                    Route::group([
+                        'prefix' => 'system',
+                        'namespace' => 'System'
+                    ], function () {
+                        /// 权限
+                        Route::get('/permissions', 'PermissionController@index')->name('permissions.index');
+                        Route::any('/permissions/import', 'PermissionController@import')->name('permissions.import');
+
+                        /// 菜单管理
+                        Route::post('/menu/order', 'MenuController@order')->name('menu.order');
+                        Route::resource('menu', 'MenuController')->except('show');
+
+                        /// 角色管理
+                        Route::resource('roles', 'RoleController')->except('show');
+
+                        /// 用户管理
+                        Route::resource('users', 'UserController')->parameter('users', 'admin_user')->except(['show']);
+
+                        /// 操作日志
+                        Route::get('/logs', 'LogController@index')->name('logs.index');
+                    });
+                });
+            });
+        });
+    }
+}

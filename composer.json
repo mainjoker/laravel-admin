@@ -1,0 +1,34 @@
+{
+    "name": "tanmo/admin",
+    "description": "Laravel package",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.*",
+        "symfony/dom-crawler": "^4.0"
+    },
+    "author": {
+        "name": "Tanmo",
+        "email": "410536770@qq.com"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tanmo\\Admin\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tanmo\\Admin\\AdminServiceProvider"
+            ],
+            "aliases": {
+                "Admin": "Tanmo\\Admin\\Facades\\Admin"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
