@@ -34,6 +34,7 @@
     </div>
 </div>
 
+@section('script')
 <script>
     $("#filter-modal .submit").click(function () {
         $("#filter-modal").modal('toggle');
@@ -41,3 +42,4 @@
         $('.modal-backdrop').remove();
     });
 </script>
+@endsection

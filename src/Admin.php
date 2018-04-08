@@ -23,7 +23,7 @@ class Admin
      */
     public function title()
     {
-        return '管理系统';
+        return config('admin.title', '后台管理系统');
     }
 
     /**
@@ -39,17 +39,18 @@ class Admin
      */
     public function menu()
     {
-        return (new Menu())->toTree();
+        $tree = (new Menu())->toTree();
+        return $tree;
     }
 
     public function css()
     {
-
+        return '';
     }
 
     public function js()
     {
-
+        return '';
     }
 
     /**
@@ -70,7 +71,6 @@ class Admin
 
             /// 登录权限
             Route::group(['middleware' => ['admin']], function () {
-                Route::get('/', 'MainController@index')->name('main');
                 Route::get('/profile', 'ProfileController@index')->name('profile');
                 Route::put('/profile', 'ProfileController@update')->name('profile');
 

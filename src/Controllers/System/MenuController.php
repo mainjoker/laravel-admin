@@ -119,6 +119,9 @@ class MenuController
         if ($menu->permission_id == null) {
             $menu->uri = null;
         }
+        else {
+            $menu->uri = $menu->permission->uri;
+        }
 
         $menu->save() ? admin_toastr('修改成功') : admin_toastr('修改失败', 'danger');
 

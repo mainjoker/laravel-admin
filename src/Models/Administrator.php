@@ -12,11 +12,6 @@ class Administrator extends User
     use Search;
 
     /**
-     * @var string
-     */
-    protected $table = 'admins';
-
-    /**
      * @var array
      */
     protected $fillable = ['username', 'password', 'name', 'avatar'];
@@ -27,6 +22,21 @@ class Administrator extends User
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Administrator constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $connection = config('admin.database.connection') ?: config('database.default');
+
+        $this->setConnection($connection);
+
+        $this->setTable(config('admin.database.administrator.table'));
+
+        parent::__construct($attributes);
+    }
 
     /**
      * @param $avatar

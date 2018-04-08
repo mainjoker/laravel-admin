@@ -50,7 +50,7 @@ class PermissionController extends AdminController
             $searcher->like('module');
         });
 
-        $permissions = (new Permission())->search($searcher)->paginate(10);
+        $permissions = (new Permission())->search($searcher)->orderBy('id', 'desc')->paginate(10);
         $header = '权限管理';
         $description = '列表';
         return view('admin::system.permissions', compact('permissions', 'header', 'description'));

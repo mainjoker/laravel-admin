@@ -55,7 +55,7 @@ class Permissions
         $routes = $this->getRoutes();
 
         $res = [];
-        foreach ($routes as &$route) {
+        foreach ($routes as $route) {
             $ref = new \ReflectionClass($route['controller']);
             $classDoc = $ref->getDocComment();
             if ($classDoc != false && $module = $this->getModule($classDoc)) {
@@ -96,21 +96,12 @@ class Permissions
     }
 
     /**
-     * @param $doc
-     * @return null|string
-     */
-    protected function getLevel($doc)
-    {
-        return $this->getTag($doc, $this->levelTag);
-    }
-
-    /**
      * @return array
      */
     protected function getRoutes()
     {
         $routes = collect($this->routes)->filter(function (Route $route) {
-            return starts_with($route->getActionName(), $this->filterNamespace);
+            return starts_with($route->getActionName(), $this->filterNamespace) || starts_with($route->getActionName(), 'Tanmo\Admin\Controllers\\');
         })->map(function (Route $route) {
             $item = [
                 'method' => implode('|', $route->methods()),

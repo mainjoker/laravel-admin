@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ admin_asset('/sweetalert/dist/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ admin_asset('/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css') }}">
     <link rel="stylesheet" href="{{ admin_asset('/iconpicker/css/fontawesome-iconpicker.min.css') }}">
+    {!! Admin::css() !!}
     <link rel="stylesheet" href="{{ admin_asset('/AdminLTE/dist/css/AdminLTE.min.css') }}">
 
     <!--[if lt IE 9]>
@@ -81,6 +82,7 @@
 <script src="{{ admin_asset ('/sweetalert/dist/sweetalert.min.js') }}"></script>
 <script src="{{ admin_asset ('/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <script src="{{ admin_asset('/iconpicker/js/fontawesome-iconpicker.min.js') }}"></script>
+{!! Admin::js() !!}
 
 <script src="{{ admin_asset('/laravel-admin/laravel-admin.js') }}"></script>
 

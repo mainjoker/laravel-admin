@@ -2,25 +2,16 @@
 
 namespace Tanmo\Admin\Controllers;
 
-use Tanmo\Admin\Traits\AdminAuth;
-use App\Http\Controllers\Controller;
-
 /**
- * @module 主界面
- * Class WelcomeController
- * @package App\Http\Controllers\Admin
+ * Class MainController
+ * @package Tanmo\Admin\Controllers
  */
-class MainController extends Controller
+class Main
 {
-    use AdminAuth;
-
     /**
-     * @permission 欢迎页
-     * @level public
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public static function envs()
     {
         $envs = [
             ['name' => 'PHP version',       'value' => 'PHP/'.PHP_VERSION],
@@ -40,7 +31,8 @@ class MainController extends Controller
         ];
 
         $header = '欢迎回来';
+        $description = '主页';
 
-        return view('admin::welcome', compact('envs', 'header'));
+        return view('admin::welcome', compact('envs', 'header', 'description'));
     }
 }

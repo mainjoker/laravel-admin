@@ -19,17 +19,27 @@ class Role extends Model
     use Search;
 
     /**
-     * @var string
-     */
-    protected $table = 'admin_roles';
-
-    /**
      * @var array
      */
     protected $fillable = ['name', 'slug'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Role constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $connection = config('admin.database.connection') ?: config('database.default');
+
+        $this->setConnection($connection);
+
+        $this->setTable(config('admin.database.role.table'));
+
+        parent::__construct($attributes);
+    }
+
+    /**
+     * @return BelongsToMany
      */
     public function admins() : BelongsToMany
     {

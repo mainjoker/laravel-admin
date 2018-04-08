@@ -36,7 +36,7 @@ class OperationLog extends Model
 
         $this->setConnection($connection);
 
-        $this->setTable('admin_operation_log');
+        $this->setTable(config('admin.database.operation_log.table'));
 
         parent::__construct($attributes);
     }

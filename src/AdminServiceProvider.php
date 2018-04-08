@@ -51,14 +51,28 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-        $this->loadRoutesFrom(base_path('routes/admin.php'));
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+
+        if (file_exists($routes = base_path('routes/admin.php'))) {
+            $this->loadRoutesFrom($routes);
+        }
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 \Tanmo\Admin\Commands\AdminCommand::class,
             ]);
+
+            $this->publishes([
+                __DIR__ . '/../resources/assets' => public_path('vendor')
+            ], 'laravel-admin-assets');
+
+            $this->publishes([
+                __DIR__ . '/../config' => config_path()
+            ], 'laravel-admin-config');
+
+            $this->publishes([
+                __DIR__ . '/../routes' => base_path('routes')
+            ], 'laravel-admin-route');
         }
     }
 
@@ -69,9 +83,6 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->mergeConfigFrom(
-//            __DIR__ . '/Config/admin.php', 'admin'
-//        );
         $this->bindRouteModel();
 
         $this->loadAdminAuthConfig();

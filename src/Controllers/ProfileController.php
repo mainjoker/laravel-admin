@@ -25,14 +25,22 @@ class ProfileController extends Controller
     use AdminAuth;
 
     /**
+     * @permission 个人信息页
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('admin::profile', ['user' => $this->user()]);
+        return view('admin::profile', [
+            'user' => $this->user(),
+            'header' => '个人中心',
+            'description' => '主页'
+        ]);
     }
 
     /**
+     * @permission 更新个人信息
+     *
      * @param AdministratorRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */

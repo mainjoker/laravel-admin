@@ -17,9 +17,8 @@ use Tanmo\Admin\Traits\AdminRedirect;
 use Illuminate\Http\Request;
 
 /**
- * @module 登录认证
  * Class AuthController
- * @package App\Http\Controllers\Administrator
+ * @package Tanmo\Admin\Controllers
  */
 class AuthController extends Controller
 {
@@ -34,9 +33,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @permission 登录页
-     * @level public
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function index()
@@ -49,9 +45,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @permission 登录
-     * @level public
-     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -69,9 +62,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @permission 退出登录
-     * @level public
-     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */

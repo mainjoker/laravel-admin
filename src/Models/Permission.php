@@ -11,18 +11,46 @@ namespace Tanmo\Admin\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tanmo\Search\Traits\Search;
 
 class Permission extends Model
 {
     use Search;
 
-    protected $table = 'admin_permissions';
-
+    /**
+     * @var array
+     */
     protected $fillable = [
         'module', 'name', 'level', 'method', 'uri', 'controller', 'action', 'route_name'
     ];
 
+    /**
+     * Permission constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $connection = config('admin.database.connection') ?: config('database.default');
+
+        $this->setConnection($connection);
+
+        $this->setTable(config('admin.database.permission.table'));
+
+        parent::__construct($attributes);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles() : BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'admin_role_permissions', 'permission_id', 'role_id');
+    }
+
+    /**
+     * @return array
+     */
     public function toPermissions()
     {
         $methods = explode('|', $this->method);
