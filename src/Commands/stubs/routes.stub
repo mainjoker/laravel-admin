@@ -3,7 +3,7 @@
 Admin::registerAdminRoutes();
 
 Route::group([
-    'namespace' => DummyNamespace,
+    'namespace' => 'DummyNamespace',
     'prefix' => 'admin',
     'middleware' => ['web', 'admin']
 ], function () {

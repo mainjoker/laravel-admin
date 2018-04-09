@@ -10,7 +10,7 @@
 namespace Tanmo\Admin\Controllers\System;
 
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 use Tanmo\Admin\Classes\Importer;
 use Tanmo\Admin\Models\Permission;
 use Tanmo\Search\Facades\Search;
@@ -22,7 +22,7 @@ use Tanmo\Search\Query\Searcher;
  * Class PermissionController
  * @package App\Http\Controllers\Administrator\System
  */
-class PermissionController extends AdminController
+class PermissionController extends Controller
 {
     /**
      * @var Importer

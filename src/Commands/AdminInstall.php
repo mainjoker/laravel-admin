@@ -101,7 +101,7 @@ class AdminInstall extends Command
 
         $this->laravel['files']->put(
             $homeController,
-            str_replace('DummyNamespace', config('admin.namespace'), $contents)
+            str_replace('DummyNamespace', rtrim(config('admin.namespace'), '\\'), $contents)
         );
         $this->line('<info>HomeController file was created:</info> '.str_replace(base_path(), '', $homeController));
     }
@@ -130,7 +130,7 @@ class AdminInstall extends Command
         $file = $this->directory.'/routes.php';
 
         $contents = $this->getStub('routes');
-        $this->laravel['files']->put($file, str_replace('DummyNamespace', config('admin.namespace'), $contents));
+        $this->laravel['files']->put($file, str_replace('DummyNamespace', rtrim(config('admin.namespace'), '\\'), $contents));
         $this->line('<info>Routes file was created:</info> '.str_replace(base_path(), '', $file));
     }
 
