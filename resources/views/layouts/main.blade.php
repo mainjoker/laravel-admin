@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ admin_asset('/sweetalert/dist/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ admin_asset('/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css') }}">
     <link rel="stylesheet" href="{{ admin_asset('/iconpicker/css/fontawesome-iconpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ admin_asset('/bootstrap-switch/css/bootstrap-switch.min.css') }}">
     {!! Admin::css() !!}
     <link rel="stylesheet" href="{{ admin_asset('/AdminLTE/dist/css/AdminLTE.min.css') }}">
 
@@ -77,11 +78,12 @@
 <script src="{{ admin_asset('/nestable/jquery.nestable.js') }}"></script>
 <script src="{{ admin_asset('/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js?v4.3.7') }}"></script>
 <script src="{{ admin_asset('/bootstrap-fileinput/js/fileinput.min.js?v4.3.7') }}"></script>
-<script src="{{ admin_asset ('/toastr/build/toastr.min.js') }}"></script>
-<script src="{{ admin_asset ('/bootstrap-validator/js/bootstrapValidator.min.js') }}"></script>
-<script src="{{ admin_asset ('/sweetalert/dist/sweetalert.min.js') }}"></script>
-<script src="{{ admin_asset ('/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<script src="{{ admin_asset('/toastr/build/toastr.min.js') }}"></script>
+<script src="{{ admin_asset('/bootstrap-validator/js/bootstrapValidator.min.js') }}"></script>
+<script src="{{ admin_asset('/sweetalert/dist/sweetalert.min.js') }}"></script>
+<script src="{{ admin_asset('/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <script src="{{ admin_asset('/iconpicker/js/fontawesome-iconpicker.min.js') }}"></script>
+<script src="{{ admin_asset('/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 {!! Admin::js() !!}
 
 <script src="{{ admin_asset('/laravel-admin/laravel-admin.js') }}"></script>

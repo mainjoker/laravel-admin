@@ -12,6 +12,13 @@ use Tanmo\Admin\Policies\RolePolicy;
 class AdminServiceProvider extends ServiceProvider
 {
     /**
+     * @var array
+     */
+    protected $commands = [
+        \Tanmo\Admin\Commands\AdminInstall::class,
+    ];
+
+    /**
      * The policy mappings for the application.
      *
      * @var array
@@ -28,7 +35,8 @@ class AdminServiceProvider extends ServiceProvider
         'admin.auth' => \Tanmo\Admin\Middleware\Authenticate::class,
         'admin.pjax' => \Tanmo\Admin\Middleware\Pjax::class,
         'admin.check_permission' => \Tanmo\Admin\Middleware\CheckPermission::class,
-        'admin.operation_log' => \Tanmo\Admin\Middleware\OperationLog::class
+        'admin.operation_log' => \Tanmo\Admin\Middleware\OperationLog::class,
+        'admin.bootstrap' => \Tanmo\Admin\Middleware\Bootstrap::class
     ];
 
     /**
@@ -38,6 +46,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $middlewareGroups = [
         'admin' => [
+            'admin.bootstrap',
             'admin.auth',
             'admin.pjax',
             'admin.operation_log'
@@ -51,19 +60,16 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+        $this->loadViewsFrom(resource_path('admin-views'), 'admin');
 
-        if (file_exists($routes = base_path('routes/admin.php'))) {
+        if (file_exists($routes = admin_path('routes.php'))) {
             $this->loadRoutesFrom($routes);
         }
 
         if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Tanmo\Admin\Commands\AdminCommand::class,
-            ]);
-
             $this->publishes([
-                __DIR__ . '/../resources/assets' => public_path('vendor')
+                __DIR__ . '/../resources/assets' => public_path('vendor'),
+                __DIR__ . '/../resources/views' => resource_path('admin-views')
             ], 'laravel-admin-assets');
 
             $this->publishes([
@@ -71,7 +77,7 @@ class AdminServiceProvider extends ServiceProvider
             ], 'laravel-admin-config');
 
             $this->publishes([
-                __DIR__ . '/../routes' => base_path('routes')
+                __DIR__ . '/../routes' => admin_path()
             ], 'laravel-admin-route');
         }
     }
@@ -90,6 +96,8 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerRouteMiddleware();
 
         $this->registerPolicies();
+
+        $this->commands($this->commands);
     }
 
     /**

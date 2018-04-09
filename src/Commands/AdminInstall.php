@@ -1,34 +1,32 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Hong
+ * Date: 2018/4/8
+ * Time: 18:02
+ * Function:
+ */
 
 namespace Tanmo\Admin\Commands;
 
+
 use Illuminate\Console\Command;
 
-class AdminCommand extends Command
+class AdminInstall extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'admin:info';
+    protected $signature = 'admin:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Shows the admin package information';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Install the admin package';
 
     /**
      * Execute the console command.
@@ -37,6 +35,6 @@ class AdminCommand extends Command
      */
     public function handle()
     {
-        $this->line('Package created using Bootpack.');
+        $this->line('Installing tanmo/laravel-admin');
     }
 }

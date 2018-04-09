@@ -12,6 +12,28 @@ class Administrator extends User
     use Search;
 
     /**
+     * 状态 - 锁定
+     *
+     * @var int
+     */
+    public static $STATE_LOCK = 0;
+
+    /**
+     * 状态 - 正常
+     *
+     * @var int
+     */
+    public static $STATE_NORMAL = 1;
+
+    /**
+     * @var array
+     */
+    public static $stateColors = [
+        1 => 'green',
+        0 => 'red',
+    ];
+
+    /**
      * @var array
      */
     protected $fillable = ['username', 'password', 'name', 'avatar'];
@@ -97,5 +119,42 @@ class Administrator extends User
     public function isRole(string $role) : bool
     {
         return $this->roles->pluck('slug')->contains($role);
+    }
+
+    /**
+     * 管理员菜单
+     *
+     * @return array
+     */
+    public function menu()
+    {
+        $tree = (new Menu())->toTree();
+        if ($this->isAdmin()) {
+            return $tree;
+        }
+
+        ///
+        $permissions = array_get($this->allPermissions(), 'GET');
+        return $this->permissionsToMenu($permissions, $tree);
+    }
+
+    /**
+     * @param array $permissions
+     * @param array $menuTree
+     * @return array
+     */
+    protected function permissionsToMenu(array $permissions, array &$menuTree)
+    {
+        foreach ($menuTree as $key => &$menu) {
+            if (isset($menu['children']) && !empty($menu['children'])) {
+                $menu['children'] = $this->permissionsToMenu($permissions, $menu['children']);
+            }
+
+            if (!in_array($menu['uri'], $permissions) && empty($menu['children'])) {
+                unset($menuTree[$key]);
+            }
+        }
+
+        return $menuTree;
     }
 }

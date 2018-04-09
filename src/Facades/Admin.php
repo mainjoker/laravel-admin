@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Tanmo\Admin\Models\Administrator|null user()
  * @method static array menu()
  * @method static void registerAdminRoutes()
+ * @method static \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void js($js = null)
+ * @method static \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void css($css = null)
  */
 class Admin extends Facade
 {

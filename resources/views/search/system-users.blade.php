@@ -53,7 +53,6 @@
     </div>
 </div>
 
-@section('script')
 <script>
     $('#created_at_start').datetimepicker({"format":"YYYY-MM-DD HH:mm:ss","locale":"zh-CN"});
     $('#created_at_end').datetimepicker({"format":"YYYY-MM-DD HH:mm:ss","locale":"zh-CN","useCurrent":false});
@@ -71,4 +70,3 @@
         $('.modal-backdrop').remove();
     });
 </script>
-@endsection

@@ -12,6 +12,7 @@ namespace Tanmo\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Tanmo\Admin\Facades\Admin;
+use Tanmo\Admin\Models\Administrator;
 use Tanmo\Admin\Traits\AdminAuth;
 use Tanmo\Admin\Traits\AdminRedirect;
 use Illuminate\Http\Request;
@@ -52,10 +53,20 @@ class AuthController extends Controller
     {
         $username = $request->username;
         $password = $request->password;
-        if ($this->guard()->attempt(['username' => $username, 'password' => $password])) {
+        $remember = $request->has('remember');
+        if ($this->guard()->attempt(['username' => $username, 'password' => $password], $remember)) {
+            if ($this->user()->state == Administrator::$STATE_LOCK) {
+                $this->guard()->logout();
+                session()->invalidate();
+                return redirect()->back()->withErrors('该用户已被锁定');
+            }
+
             $permissions = Admin::user()->allPermissions();
             session()->put('permissions', $permissions);
             return $this->redirectToMain();
+        }
+        else {
+            redirect()->back()->withInput()->withErrors('用户名或密码错误');
         }
 
         return $this->redirectToLogin();

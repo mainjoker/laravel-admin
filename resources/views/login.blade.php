@@ -21,11 +21,14 @@
     <input type="text" id="inputUserName" name="username" class="form-control" placeholder="用户名" required autofocus>
     <label for="inputPassword" class="sr-only">密码</label>
     <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="remember" value="remember-me"> 记住我
-        </label>
-    </div>
+
+    @if($errors->hasBag('default'))
+        <?php $error = $errors->getBag('default');?>
+        <div class="alert alert-danger" role="alert">
+            {{ $error->messages()[0][0] }}
+        </div>
+    @endif
+
     {{ csrf_field() }}
     <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>

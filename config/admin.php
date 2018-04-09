@@ -27,6 +27,11 @@ return [
      */
     'administrators' => [1],
 
+    /*
+     * 后台安装路径
+     */
+    'directory' => app_path('Admin'),
+
     /**
      * 管理后台命名空间
      */

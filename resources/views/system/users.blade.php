@@ -28,18 +28,20 @@
                             <th>用户名</th>
                             <th>名称</th>
                             <th>角色</th>
+                            <th>状态</th>
                             <th>创建时间</th>
                             <th>更新时间</th>
                             <th>操作</th>
                         </tr>
-                        @inject('rolePresenter', 'Tanmo\Admin\Presenters\RolePresenter')
+                        @inject('userPresenter', 'Tanmo\Admin\Presenters\UserPresenter')
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
                                 <td><img src="{{ $user->avatar }}" class="img-circle" alt="avatar" width="50" height="50"></td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{!! $rolePresenter->getRolesLabel($user->roles->pluck('name')) !!}</td>
+                                <td>{!! $userPresenter->getRolesLabel($user->roles->pluck('name')) !!}</td>
+                                <td>{!! $userPresenter->getStateLabel($user->state) !!}</td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->updated_at }}</td>
                                 <td>

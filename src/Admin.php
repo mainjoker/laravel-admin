@@ -11,13 +11,20 @@ namespace Tanmo\Admin;
 
 
 use Illuminate\Support\Facades\Auth;
-use Closure;
 use Illuminate\Support\Facades\Route;
-use Tanmo\Admin\Layouts\Content;
-use Tanmo\Admin\Models\Menu;
 
 class Admin
 {
+    /**
+     * @var array
+     */
+    public static $css = [];
+
+    /**
+     * @var array
+     */
+    public static $js = [];
+
     /**
      * @return string
      */
@@ -39,18 +46,37 @@ class Admin
      */
     public function menu()
     {
-        $tree = (new Menu())->toTree();
-        return $tree;
+        return $this->user()->menu();
     }
 
-    public function css()
+    /**
+     * @param null $css
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
+    public function css($css = null)
     {
-        return '';
+        if (!is_null($css)) {
+            self::$css = array_merge(self::$css, (array) $css);
+
+            return;
+        }
+
+        return view('admin::partials.css', ['css' => array_unique(self::$css)]);
     }
 
-    public function js()
+    /**
+     * @param null $js
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
+    public function js($js = null)
     {
-        return '';
+        if (!is_null($js)) {
+            self::$js = array_merge(self::$js, (array) $js);
+
+            return;
+        }
+
+        return view('admin::partials.js', ['js' => array_unique(static::$js)]);
     }
 
     /**

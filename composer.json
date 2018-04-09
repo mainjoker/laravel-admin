@@ -1,5 +1,5 @@
 {
-    "name": "tanmo/admin",
+    "name": "tanmo/laravel-admin",
     "description": "Laravel package",
     "license": "MIT",
     "type": "library",

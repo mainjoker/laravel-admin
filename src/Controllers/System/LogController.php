@@ -14,9 +14,16 @@ use Tanmo\Admin\Models\OperationLog;
 use Tanmo\Search\Facades\Search;
 use Tanmo\Search\Query\Searcher;
 
+/**
+ * @module 操作日志
+ * Class LogController
+ * @package Tanmo\Admin\Controllers\System
+ */
 class LogController
 {
     /**
+     * @permission 日志列表
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()

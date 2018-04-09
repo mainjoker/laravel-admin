@@ -72,6 +72,13 @@
                                     <input type="hidden" name="roles[]" />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="state" class="col-sm-2 control-label">状态</label>
+                                <div class="col-sm-8">
+                                    <input type="checkbox" class="state la_checkbox" @if($user->state) checked @endif/>
+                                    <input type="hidden" class="state" name="state" value="{{ $user->state }}" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="box-footer">
@@ -109,6 +116,17 @@
 
             $(".roles").select2({
                 "allowClear": true
+            });
+
+            $('.state.la_checkbox').bootstrapSwitch({
+                size:'small',
+                onText: '正常',
+                offText: '锁定',
+                onColor: 'primary',
+                offColor: 'danger',
+                onSwitchChange: function(event, state) {
+                    $(event.target).closest('.bootstrap-switch').next().val(state ? '1' : '0').change();
+                }
             });
 
             $("#post-form").bootstrapValidator({
