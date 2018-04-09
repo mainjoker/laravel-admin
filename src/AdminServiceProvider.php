@@ -16,6 +16,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $commands = [
         \Tanmo\Admin\Commands\AdminInstall::class,
+        \Tanmo\Admin\Commands\AdminUninstall::class,
     ];
 
     /**
