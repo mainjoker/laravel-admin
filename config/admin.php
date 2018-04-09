@@ -95,6 +95,14 @@ return [
 
         'role' => [
             'table' => 'admin_roles'
+        ],
+
+        'role_permission' => [
+            'table' => 'admin_role_permissions'
+        ],
+
+        'role_user' => [
+            'table' => 'admin_role_users'
         ]
     ],
 

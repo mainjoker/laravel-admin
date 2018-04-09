@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Hong
- * Date: 2018/3/9
- * Time: 10:10
- * Function:
- */
+
 Admin::registerAdminRoutes();
 
 Route::group([
-    'namespace' => 'App\Admin\Controllers',
+    'namespace' => DummyNamespace,
     'prefix' => 'admin',
     'middleware' => ['web', 'admin']
 ], function () {

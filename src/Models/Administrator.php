@@ -78,7 +78,7 @@ class Administrator extends User
      */
     public function roles() : BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'admin_role_users', 'user_id', 'role_id');
+        return $this->belongsToMany(Role::class, config('admin.database.role_user.table'), 'user_id', 'role_id');
     }
 
     /**

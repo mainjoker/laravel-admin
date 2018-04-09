@@ -77,8 +77,8 @@ class AdminServiceProvider extends ServiceProvider
             ], 'laravel-admin-config');
 
             $this->publishes([
-                __DIR__ . '/../routes' => admin_path()
-            ], 'laravel-admin-route');
+                __DIR__.'/../database' => database_path('migrations')
+            ], 'laravel-admin-migrations');
         }
     }
 

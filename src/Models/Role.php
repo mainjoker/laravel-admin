@@ -43,7 +43,7 @@ class Role extends Model
      */
     public function admins() : BelongsToMany
     {
-        return $this->belongsToMany(Administrator::class, 'admin_role_users', 'role_id', 'user_id');
+        return $this->belongsToMany(Administrator::class, config('admin.database.role_user.table'), 'role_id', 'user_id');
     }
 
     /**
@@ -51,6 +51,6 @@ class Role extends Model
      */
     public function permissions() : BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, 'admin_role_permissions', 'role_id', 'permission_id');
+        return $this->belongsToMany(Permission::class, config('admin.database.role_permission.table'), 'role_id', 'permission_id');
     }
 }
