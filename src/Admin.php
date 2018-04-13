@@ -87,7 +87,7 @@ class Admin
         Route::group([
             'prefix' => 'admin',
             'namespace' => 'Tanmo\Admin\Controllers',
-            'middleware' => ['web'],
+            'middleware' => ['web', 'admin.bootstrap'],
             'as' => 'admin::'
         ], function () {
             /// 游客权限
