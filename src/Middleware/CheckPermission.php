@@ -52,6 +52,6 @@ class CheckPermission
 
         ///
         $permissions = session('permissions');
-        return in_array($uri, $permissions[$method]);
+        return isset($permissions[$method]) && in_array($uri, $permissions[$method]);
     }
 }
