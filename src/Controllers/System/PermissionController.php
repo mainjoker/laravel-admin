@@ -71,6 +71,7 @@ class PermissionController extends Controller
             ]);
 
         if (request()->method() == 'POST') {
+            header('X-Accel-Buffering: no');
             $this->importer->handle();
             return '';
         }
